@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-from backend.engine import storage
-from backend.models.user import UserOrm
-from backend.models.vault import VaultOrm
-from backend.models.search import SearchOrm
+import engine
+from models.user import UserOrm
+from models.vault import VaultOrm
+from models.search import SearchOrm
+from pprint import pprint
 
 classes = {
     "User": UserOrm,
@@ -18,29 +19,31 @@ for cls in classes.values():
         }
         my_model = UserOrm(**kwargs)
         user_id = my_model.user_id
-    if cls == VaultOrm:
+    elif cls == VaultOrm:
         kwargs = {
             "name": "Akainu",
-            "count": "12"
+            "count": "12",
+            "user_id": 1
         }
         my_model = VaultOrm(**kwargs)
         my_model.save()
         # vault_id = my_model.vault_id
     elif cls == SearchOrm:
         kwargs = {
-            "word": "Nakama"
+            "word": "Kaizoku"
         }
         my_model = SearchOrm(**kwargs)
         search_id = my_model.search_id
-
+    else:
+        continue
     my_model.save()
     print('\n<---->')
     # my_model = cls[1].from_orm(my_model)
-    print(my_model)
+    pprint(my_model)
 
     print('\n<---->')
     my_model_json = my_model.to_dict()
-    print(my_model_json)
+    pprint(my_model_json)
 
     print('\n<---->')
     print("JSON of my_model:")
@@ -50,13 +53,13 @@ for cls in classes.values():
                                        my_model_json[key]))
 
     print('\n<---->')
-    print("All objects: {}".format(storage.count()))
-    print("{} objects: {}".format(cls.__name__, storage.count(cls)))
+    print("All objects: {}".format(engine.storage.count()))
+    print("{} objects: {}".format(cls.__name__, engine.storage.count(cls)))
 
     print('\n<---->')
-    first_cls_id = list(storage.all(cls).values())[0].id
+    first_cls_id = [obj for obj in engine.storage.all(cls).values()][0].id
     print("First {}: {}".format(str(cls.__name__).lower(),
-                                str(storage.get(cls, first_cls_id))))
+                                str(engine.storage.get(cls, first_cls_id))))
 
     # print('\n<---->')
     # my_model.delete()

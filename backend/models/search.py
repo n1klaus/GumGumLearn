@@ -4,7 +4,7 @@
 from pydantic import BaseModel, HttpUrl, Json
 from typing import Optional, List, Any
 from datetime import datetime
-from backend.models.base import Base, BaseClass
+from models.base import Base, BaseClass
 from sqlalchemy import Column, INTEGER, Identity, ForeignKey, TEXT
 from sqlalchemy.dialects.postgresql import JSON
 
@@ -35,7 +35,7 @@ class SearchOrm(BaseClass, Base):
     search_id = Column(INTEGER, Identity(always=True, start=1, increment=1,
                                          nomaxvalue=True), primary_key=True,
                        unique=True, nullable=False)
-    vault_id = Column(ForeignKey("vault.vault_id"))
+    vault_id = Column(ForeignKey("vault.vault_id"), nullable=True)
     word = Column(TEXT, nullable=False)
     translated_word = Column(TEXT)
     meanings = Column(JSON)

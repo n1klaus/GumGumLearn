@@ -4,7 +4,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
-from backend.models.base import Base, BaseClass
+from models.base import Base, BaseClass
 from sqlalchemy import Column, TEXT, Identity, INTEGER, ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -26,7 +26,8 @@ class VaultOrm(BaseClass, Base):
                                         nomaxvalue=True), primary_key=True,
                       unique=True, nullable=False)
     user_id = Column(ForeignKey("users.user_id",
-                                onupdate="CASCADE", ondelete="CASCADE"))
+                                onupdate="CASCADE", ondelete="CASCADE"),
+                     nullable=False)
     searches = relationship("SearchOrm", backref="vaults")
 
     def __init__(self, *args, **kwargs):

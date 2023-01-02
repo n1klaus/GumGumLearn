@@ -10,7 +10,8 @@ from sqlalchemy import Column, INTEGER, Identity, text, TEXT, ForeignKey
 from sqlalchemy.dialects.postgresql import JSON, BYTEA, UUID, TIMESTAMP
 import bcrypt
 import secrets
-from backend.models.base import Base, BaseClass
+from models.base import Base, BaseClass
+import engine
 
 
 class UserModel(BaseModel):
@@ -59,10 +60,6 @@ class UserOrm(BaseClass, Base):
     reset_code = Column(TEXT, unique=True, nullable=False,
                         default=secrets.token_hex)
     local_language = Column(TEXT, server_default="en-GB")
-    date_joined = Column(
-        TIMESTAMP(
-            timezone=True),
-        server_default=text("now()"))
 
     @validates("username")
     def validate_username(self, key, value):
@@ -74,13 +71,13 @@ class UserOrm(BaseClass, Base):
         """Instantiation of user objects"""
         super().__init__(*args, **kwargs)
         self.create_password_salt()
-        if not self.password:
-            self.password = self.reset_code
-        self.create_password_hash(self.password)
+        # if not self.password:
+        #     self.password = self.reset_code
+        self.create_password_hash(kwargs.get("password"))
         del self.password
 
     def create_password_salt(self):
-        self.password_salt = bcrypt.gensalt()
+        self.password_salt = bcrypt.gensalt(rounds=17, prefix=b"2a")
 
     def create_password_hash(self, password_str: str):
         password_hash = bcrypt.hashpw(password_str.encode("utf-8"),
@@ -88,10 +85,20 @@ class UserOrm(BaseClass, Base):
         if bcrypt.checkpw(password_str.encode("utf-8"), password_hash):
             self.password_hash = password_hash
         else:
-            raise BaseException("Something wrong happened")
+            raise ValueError("Choose a new password")
 
     def __setattr__(self, __name: str, __value: Any):
         if __name == "password":
             self.create_password_salt()
             self.create_password_hash(__value)
         return super().__setattr__(__name, __value)
+
+    @classmethod
+    def get_user(cls, email: str):
+        """Returns a user object from given username"""
+        _users = engine.storage.all(cls)
+        if _users:
+            for _user in _users.values():
+                if _user.email == email:
+                    return _user
+        return None

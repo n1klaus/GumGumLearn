@@ -8,9 +8,7 @@ from fastapi.requests import Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import HTTPException, RequestValidationError
-from backend.models.user import UserOrm, UserModel
-from backend.models.search import SearchOrm, SearchModel
-from backend.models.vault import VaultOrm, VaultModel
+from config import classes
 import engine
 from os import getenv
 
@@ -47,8 +45,8 @@ class SignupItem(BaseModel):
         return value
 
     @validator("password1", "password2")
-    def validates_passwords_match(cls, value1, value2):
-        if value1 == value2:
+    def validates_passwords_match(cls, value, field):
+        if value == field:
             return True
         raise ValueError("Passwords do not match")
 
@@ -94,7 +92,7 @@ def root() -> dict:
 def login(loginitem: LoginItem):
     """Creates session token from existing credentials"""
     login_data = jsonable_encoder(loginitem)
-    user = UserOrm.get(login_data.get("username"))
+    user = classes.get("User").get_user(login_data.get("username"))
     if user:
         encoded_token = jwt.encode(login_data, SECRET_KEY, ALGORITHM)
         return {"token": encoded_token, "uuid": user.uuid}
@@ -106,7 +104,7 @@ def login(loginitem: LoginItem):
 @app.get("/reset_password", status_code=201, tags=["users"])
 def reset_password(username: int):
     """Updates existing user password"""
-    user = UserOrm.get(username)
+    user = classes.get("User").get_user(username)
     if user:
         return {"reset_token": user.reset_code, "uuid": user.uuid}
     raise HTTPException(
@@ -123,7 +121,7 @@ def signup(signupitem: SignupItem):
             username=signup_data.get("username"),
             password=signup_data.get("password1"))
         login_data = jsonable_encoder(login_item)
-        user = UserOrm(login_data)
+        user = classes.get("User")(login_data)
         if user:
             user.save()
             encoded_token = jwt.encode(login_data, SECRET_KEY, ALGORITHM)
@@ -136,7 +134,7 @@ def signup(signupitem: SignupItem):
 @app.get("/users", status_code=200, tags=["users"])
 def get_users() -> dict:
     """Returns all users"""
-    users = engine.storage.all(UserOrm)
+    users = engine.storage.all(classes.get("User"))
     if users:
         user_list = [user.to_dict() for user in users.values()]
         return {"data": user_list}
@@ -148,7 +146,7 @@ def get_users() -> dict:
 @app.get("/users/{user_id}", status_code=200, tags=["users"])
 def get_user(user_id: int) -> dict:
     """Returns a single user"""
-    user = engine.storage.get(UserOrm, user_id)
+    user = engine.storage.get(classes.get("User"), user_id)
     if user:
         return {"data": user.to_dict()}
     raise HTTPException(status_code=404, detail={"message": "User not found"})
@@ -158,7 +156,7 @@ def get_user(user_id: int) -> dict:
 def edit_user(user_id: int, username: str = None,
               password: str = None, local_language: str = None) -> dict:
     """Updates a user"""
-    user = engine.storage.get(UserOrm, user_id)
+    user = engine.storage.get(classes.get("User"), user_id)
     if user:
         for attr in [username, password, local_language]:
             if attr:
@@ -171,7 +169,7 @@ def edit_user(user_id: int, username: str = None,
 @app.delete("/users/{user_id}", status_code=204, tags=["users"])
 def delete_user(user_id: int) -> dict:
     """Deletes a single user"""
-    user = engine.storage.get(UserOrm, user_id)
+    user = engine.storage.get(classes.get("User"), user_id)
     if user:
         user.delete()
         return {"message": "User deleted successfully"}
@@ -181,8 +179,8 @@ def delete_user(user_id: int) -> dict:
 @app.get("/users/{user_id}/vault/{vault_id}", status_code=200, tags=["vault"])
 def get_user_vault(user_id: int, vault_id: int) -> dict:
     """Returns a user vault object"""
-    user = engine.storage.get(UserOrm, user_id)
-    vault = engine.storage.get(VaultOrm, vault_id)
+    user = engine.storage.get(classes.get("User"), user_id)
+    vault = engine.storage.get(classes.get("Vault"), vault_id)
     if user and vault:
         user_vault = vault.get_objects()
         return {"data": user_vault}
@@ -194,8 +192,8 @@ def get_user_vault(user_id: int, vault_id: int) -> dict:
 @app.put("/users/{user_id}/vault/{vault_id}", status_code=201, tags=["vault"])
 def modify_user_vault(user_id: int, vault_id: int, search: list) -> dict:
     """Updates a user vault"""
-    user = engine.storage.get(UserOrm, user_id)
-    vault = engine.storage.get(VaultOrm, vault_id)
+    user = engine.storage.get(classes.get("User"), user_id)
+    vault = engine.storage.get(classes.get("Vault"), vault_id)
     if user and vault:
         counter = 0
         for item in search:
@@ -214,8 +212,8 @@ def modify_user_vault(user_id: int, vault_id: int, search: list) -> dict:
             status_code=204, tags=["vault"])
 def delete_user_vault(user_id: int, vault_id: int) -> dict:
     """Deletes a user vault"""
-    user = engine.storage.get(UserOrm, user_id)
-    vault = engine.storage.get(VaultOrm, vault_id)
+    user = engine.storage.get(classes.get("User"), user_id)
+    vault = engine.storage.get(classes.get("Vault"), vault_id)
     if user and vault:
         vault.delete()
         return {"message": "Vault deleted successfully"}
@@ -234,7 +232,7 @@ def query_dictionary_lemmas(word_id: str):
             "app_key": DICTIONARY_APP_KEY})
     if response.status_code == 200:
         response_data = jsonable_encoder(response.json())
-        search_obj = SearchOrm(**response_data)
+        search_obj = classes.get("Search")(**response_data)
         search_obj.save()
         return {"data": search_obj.to_dict()}
     raise HTTPException(
@@ -254,7 +252,7 @@ def query_dictionary_translation(
             "app_key": DICTIONARY_APP_KEY})
     if response.status_code == 200:
         response_data = jsonable_encoder(response.json())
-        search_obj = SearchOrm(**response_data)
+        search_obj = classes.get("Search")(**response_data)
         search_obj.save()
         return {"data": search_obj.to_dict()}
     raise HTTPException(
@@ -275,7 +273,7 @@ def query_dictionary_thesaurus(word_id: str):
             "app_key": DICTIONARY_APP_KEY})
     if response.status_code == 200:
         response_data = jsonable_encoder(response.json())
-        search_obj = SearchOrm(**response_data)
+        search_obj = classes.get("Search")(**response_data)
         search_obj.save()
         return {"data": search_obj.to_dict()}
     raise HTTPException(
@@ -293,7 +291,7 @@ def query_dictionary_online_examples(word_id: str):
             "app_key": DICTIONARY_APP_KEY})
     if response.status_code == 200:
         response_data = jsonable_encoder(response.json())
-        search_obj = SearchOrm(**response_data)
+        search_obj = classes.get("Search")(**response_data)
         search_obj.save()
         return {"data": search_obj.to_dict()}
     raise HTTPException(
@@ -312,7 +310,7 @@ def query_dictionary_words():
             "app_key": DICTIONARY_APP_KEY})
     if response.status_code == 200:
         response_data = jsonable_encoder(response.json())
-        search_obj = SearchOrm(**response_data)
+        search_obj = classes.get("Search")(**response_data)
         search_obj.save()
         return {"data": search_obj.to_dict()}
     raise HTTPException(
@@ -330,7 +328,7 @@ def query_dictionary_entries(word_id: str):
             "app_key": DICTIONARY_APP_KEY})
     if response.status_code == 200:
         response_data = jsonable_encoder(response.json())
-        search_obj = SearchOrm(**response_data)
+        search_obj = classes.get("Search")(**response_data)
         search_obj.save()
         return {"data": search_obj.to_dict()}
     raise HTTPException(
@@ -358,11 +356,11 @@ def search(text: str) -> dict:
           status_code=201, tags=["search"])
 def save_search(user_id: int, vault_id: int, searchitem: SearchItem) -> dict:
     """Adds a search object into user vault"""
-    user = engine.storage.get(UserOrm, user_id)
-    vault = engine.storage.get(VaultOrm, vault_id)
+    user = engine.storage.get(classes.get("User"), user_id)
+    vault = engine.storage.get(classes.get("Vault"), vault_id)
     if user.user_id == vault.user_id:
         search_data = jsonable_encoder(searchitem)
-        search_obj = SearchOrm(**search_data)
+        search_obj = classes.get("Search")(**search_data)
         search_obj.vault_id = vault.vault_id
         search_obj.save()
         user_vault = vault.get_objects()
@@ -374,9 +372,9 @@ def save_search(user_id: int, vault_id: int, searchitem: SearchItem) -> dict:
             status_code=204, tags=["vault"])
 def delete_search(user_id: int, vault_id: int, search_id: int) -> dict:
     """Deletes a search object from user vault"""
-    user = engine.storage.get(UserOrm, user_id)
-    vault = engine.storage.get(VaultOrm, vault_id)
-    search = engine.storage.get(SearchOrm, vault_id)
+    user = engine.storage.get(classes.get("User"), user_id)
+    vault = engine.storage.get(classes.get("Vault"), vault_id)
+    search = engine.storage.get(classes.get("Search"), vault_id)
     if user.user_id == vault.user_id and vault.vault_id == search.vault_id:
         search.delete()
         return {"message": "Search deleted successfully"}

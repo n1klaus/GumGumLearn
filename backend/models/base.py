@@ -3,11 +3,11 @@
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, BOOLEAN,\
-    text, Sequence, INTEGER, Identity, TEXT
+    text, Sequence, INTEGER
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.sql import expression
 from datetime import datetime, timezone
-import backend.engine as engine
+import engine
 
 Base = declarative_base()
 
