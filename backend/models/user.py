@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module to define a user class"""
 
+import engine
 from pydantic import BaseModel, validate_model, validator, ValidationError
 from typing import Any, Optional
 from datetime import datetime
@@ -11,7 +12,7 @@ from sqlalchemy.dialects.postgresql import JSON, BYTEA, UUID, TIMESTAMP
 import bcrypt
 import secrets
 from models.base import Base, BaseClass
-import engine
+
 
 
 class UserModel(BaseModel):
@@ -71,34 +72,49 @@ class UserOrm(BaseClass, Base):
         """Instantiation of user objects"""
         super().__init__(*args, **kwargs)
         self.create_password_salt()
-        # if not self.password:
-        #     self.password = self.reset_code
         self.create_password_hash(kwargs.get("password"))
-        del self.password
 
     def create_password_salt(self):
-        self.password_salt = bcrypt.gensalt(rounds=17, prefix=b"2a")
+        """Generates new password salt"""
+        self.password_salt = bcrypt.gensalt(rounds=15, prefix=b"2a")
 
     def create_password_hash(self, password_str: str):
+        """Generates new password hash"""
         password_hash = bcrypt.hashpw(password_str.encode("utf-8"),
                                       self.password_salt)
-        if bcrypt.checkpw(password_str.encode("utf-8"), password_hash):
+        if self.validate_password(password_str, password_hash):
             self.password_hash = password_hash
         else:
             raise ValueError("Choose a new password")
 
+    def validate_password(self, password_str: str,  hash: bytes = None):
+        """Validates a hash from its cleartext"""
+        return bcrypt.checkpw(password_str.encode("utf-8"),
+                            hash or self.password_hash)
+
+    def create_reset_code(self):
+        """Generates new password reset code"""
+        self.reset_code = secrets.token_hex(24)
+
     def __setattr__(self, __name: str, __value: Any):
+        """Assign or modify user attributes"""
         if __name == "password":
             self.create_password_salt()
             self.create_password_hash(__value)
+            self.create_reset_code()
         return super().__setattr__(__name, __value)
 
     @classmethod
-    def get_user(cls, email: str):
+    def get_user(cls, username: str):
         """Returns a user object from given username"""
         _users = engine.storage.all(cls)
         if _users:
             for _user in _users.values():
-                if _user.email == email:
+                if _user.username == username:
                     return _user
         return None
+
+    def delete_account(self):
+        """Delete a user account"""
+        engine.storage.delete(self)
+        engine.storage.save()

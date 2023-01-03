@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """Module definition for a PostgreSQL database connection"""
 
+from models.base import *
 import engine
 import config
-from models.base import Base
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.exc import PendingRollbackError
@@ -41,17 +41,17 @@ class Storage:
         new_dict = {}
         for clss in config.classes.keys():
             if cls is None or cls is config.classes[clss] or cls is clss:
-                objs = self.__session.query(config.classes[clss])
+                objs = self.__session.query(config.classes.get(clss))
                 for obj in objs:
-                    if obj.__class__.__name__ in config.classes:
-                        _id = f"{obj.__class__.__name__.lower()}_id"
-                        if getattr(obj, _id, None):
-                            _attr = getattr(obj, _id)
+                    if obj.__class__.__name__ in config.classes.values():
+                        _attr = f"{str(clss).lower()}_id"
+                        if getattr(obj, _attr, None):
+                            _id = getattr(obj, _attr)
                         else:
-                            _attr = self.id
-                        key = f"{obj.__class__.__name__}.{_attr}"
+                            _id = self.id
+                        key = f"{clss}.{_id}"
                     else:
-                        key = f"{obj.__class__.__name__}.{obj.id}"
+                        key = f"{clss}.{obj.id}"
                     new_dict[key] = obj
         return (new_dict)
 
@@ -92,9 +92,12 @@ class Storage:
             return None
 
         all_cls = engine.storage.all(cls)
-        _id = f"{cls.__name__.lower()}_id"
+        for k, v in config.classes.items():
+            if v == cls:
+                _cls = k
+        _attr = f"{_cls.lower()}_id"
         for obj in all_cls.values():
-            if (getattr(obj, _id, None) == id):
+            if (getattr(obj, _attr, None) == id):
                 return obj
         return None
 
