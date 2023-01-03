@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" media="screen">
+    <link rel="stylesheet" href="{{ '/assets/css/mobile.css' | relative_url }}" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="{{ '/assets/css/non-screen.css' | relative_url }}" media="handheld, only screen and (max-device-width:640px)">
+
+    <script src="{{ '/assets/js/modernizr.js' | relative_url }}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="{{ '/assets/js/headsmart.min.js' | relative_url }}"></script>
+    <script>
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+
+{% seo %}
+
+{% include head-custom.html %}
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-title">
+          <a class="home-link" href="/">
+              <img src="/assets/logo" alt="GumGumLearn">
+              GumGumLearn
+          </a>
+      </div>
+      <a id="menu-toggle" href="#" onclick="document.getElementById('nav-menu').classList.toggle('active'); return false;">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </a>
+      <ul id="nav-menu">
+          
+              <li><a href="#services">Services</a></li>
+          
+              <li><a href="#features">Features</a></li>
+          
+              <li><a href="#membership">Membership</a></li>
+          
+              <li><a href="#" target="_blank" rel="noopener">Visit Site</a></li>
+          
+              <li><a href="https://github.com/n1klaus/GumGumLearn" target="_blank" rel="noopener">GitHub</a></li>
+          
+      </ul>
+    </nav>
+    <a id="forkme_banner" href="{{ site.github.repository_url }}">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>{{ site.title | default: site.github.repository_name }}</h1>
+            <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <!-- {% if site.show_downloads %}
+        <section id="downloads">
+          <span class="inner">
+            <a href="{{ site.github.zip_url }}" class="zip"><em>download</em> .ZIP</a><a href="{{ site.github.tar_url }}" class="tgz"><em>download</em> .TGZ</a>
+          </span>
+        </section>
+      {% else %}
+        <div id="no-downloads">
+          <span class="inner">
+          </span>
+        </div>
+      {% endif %}
+
+
+      <span class="banner-fix"></span> -->
+
+      <div class="section grey" id="features">
+        <div class="container">
+            <div id="features-text">
+                <h1 class="small-title center-text mega-margin">#OurPhilosophy</h1>
+                <p class="center-text mega-margin">Integration over Isolation</p>
+            </div>
+        </div>
+        <div class="small-container" id="emoji-cards">
+            <div class="emoji-card">
+                <img src="assets/fire.svg" alt="Fire emoji" class="emoji-img center-margin large-margin">
+                <h1 class="center-text medium-margin">Search</h1>
+                <p class="center-text">New vocabulary. No problem.</p>
+            </div>
+    
+            <div class="emoji-card">
+                <img src="assets/sun.svg" alt="Sun emoji" class="emoji-img center-margin large-margin">
+                <h1 class="center-text medium-margin">Rich API</h1>
+                <p class="center-text">Get access to library of content, practice tests and quiz to keep you up the pace</p>
+            </div>
+    
+            <div class="emoji-card">
+                <img src="assets/heart.svg" alt="Pride heart emoji" class="emoji-img center-margin large-margin">
+                <h1 class="center-text medium-margin">Vault</h1>
+                <p class="center-text">Get access to your search history and data in your vault</p>
+            </div>
+    
+        </div>
+      </div>
+
+      <div>
+        <p>
+          This project was inspired by my need to track and learn new words i always encountered when reading books. It was always easy to highlight on a hard cover but hard to recollect something that struck your mind at a particular time. After a shift to Pdfs and online books the hassle got easier to manage but not completely eradicated. In the process of finishing up a book i always wanted to be able to apply some of the new words but i had no central place to store or revise on such. Hence later on i decided to ...
+        </p>
+        <div id="contact-a-human" class="full-width human">
+          <div class="container mini-section">
+            <span class="mega-octicon octicon-person"></span>
+            <h3>You can reach me here:</h3>
+            <p>Email <a href="mailto:nicknyanjui.com">nicknyanjui.com</a></p>
+            <p>Linkedin <a href="mailto:nicknyanjui.com">nicknyanjui.com</a></p>
+            <p>Twitter <a href="mailto:nicknyanjui.com">nicknyanjui.com</a></p>
+            <p>Github <a href="mailto:nicknyanjui.com">nicknyanjui.com</a></p>
+          </div>
+        </div>
+      </div>
+      <!-- <section id="main_content">
+        {{ content }}
+      </section> -->
+
+      <div class="footer">
+        <div class="container">
+            <div class="footer-cell footer-margin">
+                <a href="#" class="Button Button--large">Visit Site</a>
+            </div>
+            <div class="footer-cell footer-margin">
+                <h3 class="xsmall-margin">
+                    <a class="foot-link" target="_blank" rel="noopener" href="#">About</a>
+                </h3>
+                <a class="foot-link" target="_blank" rel="noopener" href="#">FAQ</a>
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Contact</a>
+            </div>
+
+            <div class="footer-cell footer-margin">
+                <h3 class="xsmall-margin">
+                    <a class="foot-link" target="_blank" rel="noopener" href="#">Blogs</a>
+                </h3>
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Neuropsychology </a>
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Linguistics</a>
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Phonology</a>
+            </div>
+
+            <div class="footer-cell footer-margin">
+                <h3 class="xsmall-margin">
+                    <a class="foot-link" target="_blank" rel="noopener" href="#">Participate</a>
+                </h3>
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Documentation</a>
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Forums</a>
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Communities</a>
+            </div>
+
+            <div class="footer-cell">
+                © 2023 GumGumLearn, Inc.
+            </div>
+
+            <div class="footer-cell">
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Cookies</a>
+            </div>
+
+            <div class="footer-cell">
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Privacy</a>
+            </div>
+
+            <div class="footer-cell">
+                <a class="foot-link" target="_blank" rel="noopener" href="#">Terms and Conditions</a>
+            </div>
+        </div>
+      </div> 
+
+    </div>
+  </body>
+</html>
