@@ -32,3 +32,4 @@ TEST_ENV.sh
 SECRETS
 
 *.code-workspace
+PROGRESS.md

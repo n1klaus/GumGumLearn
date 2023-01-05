@@ -5,7 +5,7 @@ layout: default
 * * *
 
 <h1>GUMGUMLEARN</h1>
-<p style="text-align:center;font-style:italic">Learn, Improve and Gauge your English.</p>
+<p style="text-align:center;font-style:italic">The best way to learn, improve and gauge your English.</p>
 
 <br><br>
 ### OurPhilosophy
