@@ -3,3 +3,13 @@ description: Merlot is a theme for GitHub Pages.
 show_downloads: true
 google_analytics:
 theme: jekyll-theme-merlot
+github: [metadata]
+encoding: "UTF-8"
+markdown: kramdown
+# kramdown:
+  # use Github Flavored Markdown
+  # input: GFM
+  # do not replace newlines by <br>s
+  # hard_wrap: false
+  # parse markdown inside block-level HTML tag
+  # parse_block_html: true
