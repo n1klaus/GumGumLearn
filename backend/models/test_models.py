@@ -30,7 +30,8 @@ for cls in classes.values():
         # vault_id = my_model.vault_id
     elif cls == SearchOrm:
         kwargs = {
-            "word": "Kaizoku"
+            "word": "Kaizoku",
+            "vault_id": 1
         }
         my_model = SearchOrm(**kwargs)
         search_id = my_model.search_id

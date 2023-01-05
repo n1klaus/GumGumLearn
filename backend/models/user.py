@@ -14,7 +14,6 @@ import secrets
 from models.base import Base, BaseClass
 
 
-
 class UserModel(BaseModel):
     """Class definition for user objects"""
     user_id: int
@@ -53,7 +52,6 @@ class UserOrm(BaseClass, Base):
                                        nomaxvalue=True),
                      primary_key=True,
                      unique=True, nullable=False)
-    vault_id = Column(ForeignKey("vault.vault_id"))
     uuid = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4)
     username = Column(TEXT, unique=True, nullable=False)
     password_hash = Column(BYTEA, unique=True, nullable=False)
@@ -87,10 +85,10 @@ class UserOrm(BaseClass, Base):
         else:
             raise ValueError("Choose a new password")
 
-    def validate_password(self, password_str: str,  hash: bytes = None):
+    def validate_password(self, password_str: str, hash: bytes = None):
         """Validates a hash from its cleartext"""
         return bcrypt.checkpw(password_str.encode("utf-8"),
-                            hash or self.password_hash)
+                              hash or self.password_hash)
 
     def create_reset_code(self):
         """Generates new password reset code"""

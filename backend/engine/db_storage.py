@@ -7,8 +7,8 @@ import config
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.exc import PendingRollbackError
-from sqlalchemy.orm import sessionmaker, scoped_session
-
+from sqlalchemy.orm import sessionmaker, scoped_session, Query
+from pprint import pprint
 
 GUMGUMLEARN_POSTGRESQL_USER = getenv('GUMGUMLEARN_POSTGRESQL_USER')
 GUMGUMLEARN_POSTGRESQL_PWD = getenv('GUMGUMLEARN_POSTGRESQL_PWD')
@@ -99,6 +99,24 @@ class Storage:
         for obj in all_cls.values():
             if (getattr(obj, _attr, None) == id):
                 return obj
+        return None
+
+    def get_user_vault(self, user_id: int, vault_id: int):
+        """Returns user vault items"""
+        objs = Query([config.classes.get("Vault"),
+                      config.classes.get("Search")],
+                     session=self.__session).join(
+            config.classes.get("Vault").searches).filter(
+            config.classes.get("Vault").vault_id == vault_id).filter(
+            config.classes.get("Vault").user_id == user_id)
+        if objs:
+            obj_list = []
+            for vault_obj, search_obj in objs:
+                if vault_obj and search_obj:
+                    new_dict = vault_obj.to_dict()
+                    new_dict.update(**search_obj.to_dict())
+                    obj_list.append(new_dict)
+            return obj_list
         return None
 
     def count(self, cls=None):
