@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query'
 import Login from './Login';
 import Signup from './Signup';
 import ResetPassword from './ResetPassword';
@@ -10,9 +11,13 @@ import { RequireToken} from './Components/Auth'
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 
+
+const queryClient = new QueryClient()
+
 function App() {
   return (
-    <div className ="App">
+    <div className ="App-container">
+		<QueryClientProvider client={queryClient}>
 			<Header />
 			<BrowserRouter>
 				<Routes>
@@ -29,7 +34,8 @@ function App() {
 				</Routes>
 			</BrowserRouter>
 			<Footer />
-		</div>
+		</QueryClientProvider>
+	</div>
   );
 }
 

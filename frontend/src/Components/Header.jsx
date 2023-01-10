@@ -3,13 +3,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import Languages from './Languages';
+import Button from 'react-bootstrap/Button';
 
-export default function Header() {
+const Header = () => {
   return (
     <>
         <Navbar bg="light" expand="md" className="mb-3">
           <Container fluid>
-            <Navbar.Brand href="#">GumGumLearn</Navbar.Brand>
+            <Navbar.Brand href="/">GumGumLearn</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-$sm`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-$sm`}
@@ -23,21 +25,17 @@ export default function Header() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">About</Nav.Link>
-                  <Nav.Link href="#action2">Contact</Nav.Link>
+                  <Nav.Link href="/about">About</Nav.Link>
+                  <Nav.Link href="/contact">Contact</Nav.Link>
                   <NavDropdown
                     title="Language"
                     id={`offcanvasNavbarDropdown-expand-$sm`}
                   >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
+                    <Languages />
                   </NavDropdown>
+                  <Nav.Link href="/login">
+                    <Button>Login</Button>
+                  </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
@@ -46,3 +44,4 @@ export default function Header() {
     </>
   );
 }
+export default Header;
