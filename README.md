@@ -1,100 +1,105 @@
-# GUMGUMLEARN
-Your personalized learning companion for the english language
+![GumGumLearn](./docs/assets/images/GumGumLearnLogo.png)
 
-### Setting up the Database
-##### Install dbdocs
-``` bash
-# clean cache and update to the latest version
-sudo npm cache clean -f
-sudo npm update -g npm
+<div align='center'>
 
-# install dbdocs
-sudo npm install -g dbdocs
-```
+![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 
-##### Install dbml2sql
-``` bash
-# install dbml to sql cli tool
-npm install -g @dbml/cli
-```
+[![Version](https://img.shields.io/github/v/release/n1klaus/GumGumLearn?color=%23FDD835&label=version)](https://github.com/n1klaus/GumGumLearn/releases)
 
-##### Install postgresql
-``` bash
-# Add repository keys and gpg keys
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+[![Build Status](https://travis-ci.org/anfederico/clairvoyant.svg?branch=master)](https://travis-ci.org/anfederico/clairvoyant)
 
-# update apt list
-sudo apt-get update
+![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
 
-# install postgresql
-sudo apt-get -y install postgresql postgresql-contrib
+[![GitHub Issues](https://img.shields.io/github/issues/n1klaus/GumGumLearn.svg)](https://github.com/n1klaus/GumGumLearn/issues)
 
-# Add working environment variables to user profile
-echo -c 'export LC_ALL="en_US.UTF-8"' | sudo tee -a ~/.profile
-echo -c 'export PGHOST=localhost' | sudo tee -a ~/.profile
-```
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
-##### Creating a single dbml file
-``` bash
-# move to the database directory
-cd backend/database
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-# Concatenate all files into a single file
-# validate and build the project
-cat users.dbml vault.dbml search.dbml > learn_db_dev.dbml &&\
-dbdocs build learn_db_dev.dbml
-```
+</a>
+  
+</div>
 
-##### Creating a sqldump from dbml file
-``` bash
-# create a sql dump from the dbml file
-dbml2sql learn_db_dev.dbml -o learn_db_dev.sql
-```
+<br />
 
-### Setting up the Backend
-##### [Setup the environment variables](./DEV_ENV.sh)
-``` bash
-# Add working environment variables to user profile
-echo "source /vagrant/GumGumLearn/DEV_ENV.sh" | sudo tee -a ~/.profile
-```
+---
 
-##### [Setup the database and user](./database/create_db_dev.sh)
-``` bash
-# sometimes you may need to run this twice if you get an error
+<div align='center'>
+  
+### Quick Links
+  
+<a href='#'>
+  
+<img src='https://img.shields.io/badge/HOMEPAGE-gray?style=for-the-badge'>
+  
+</a>
+  
+<a href='https://medium.com/@nicknyanjui/how-i-built-a-resilient-web-application-to-provide-an-immersive-english-learning-experience-5f724a58bdbb'>
+  
+<img src='https://img.shields.io/badge/BLOG-blue?style=for-the-badge'>
+  
+</a>
+  
+<br />
+  
+<br />
+  
+</div>
 
-# you may also need to make sure '/etc/postgresql/15/main/pg_hba.conf'
-# has local connections to trust, like this:
-# local        all      postgres     trust
-cat backend/database/setup_db_dev.sql | psql postgres postgres
-```
+---
 
-##### View the database and tables
-``` bash
-# Enter password 'learn_dev_pwd'
-psql -U learn_dev -d learn_dev_db -W
 
-# To view the databases
-\l
+<div align="center">
 
-# To view all database tables
-\dt+
+**[PROJECT PHILOSOPHY](https://github.com/n1klaus/GumGumLearn#-project-philosophy) • 
+[TECH STACK](https://github.com/n1klaus/GumGumLearn#-tech-stack) • 
+[CONTRIBUTING](https://github.com/n1klaus/GumGumLearn#%EF%B8%8F-contributing) • 
+[SPREAD THE WORD](https://github.com/n1klaus/GumGumLearn#-spread-the-word) • 
+[LICENSE](https://github.com/n1klaus/GumGumLearn#%EF%B8%8F-license)**
 
-# To exit the psql cli
-\q
+</div>
 
-```
+<br />
 
-##### Testing class models
-``` bash
-# create test user and view dictionary attributes
-python3 backend/models/test_models.py
-```
+# 🧐 Project philosophy
 
-### Setting up the API
+***Integration over Isolation***
 
-### Setting up the Frontend
-``` bash
-# install react, create template and dependencies from boilerplate
-npx create-react-app my-app
-```
+GumGumLearn aims to provide the best way to learn, improve and gauge your English through persnoalized content fueled from yoour search queries hence making internalization and comprehension easier.
+
+# 💡 Inspiration
+
+This project was inspired by my need to track and learn new words i always encountered when reading books or in online publications. It was always easy to highlight on a hard cover but hard to recollect something that struck your mind at a particular time. After a shift to Pdfs and online books the hassle got easier but not completely eradicated. In the process of finishing up a book i always wanted to be able to apply some of the new words but i had no strategy for that. Hence later on i decided to create a key-value storage file to store words and their meanings and synonyms so that if i encountered for example two new  similar words I would be able to make the connection. With time i added features like pronunciation and translation up to this point where i have aggregated all that trial and error into a web application on a broader scope to help learners or people facing the same challenges and also with extra features.
+
+# 👨‍💻 Tech stack
+
+Here's a brief high-level overview of the tech stack GumGumLearn uses:
+
+Database — [PostgreSQL](https://www.postgresql.org/docs/current/index.html) because of its popularity and recommendations from various blogs regarding speed, efficiency, full-text search capabilities, and also the PostgreSQL query cache
+
+Back-end development — [Python3](https://docs.python.org/3.8/) language due to simplicity and flexibility when learning and using new technologies and integration with command line tools for debugging and other alternative uses using CPython implementation, [FastAPI framework]() because of its straightforward documentation, performance advantages, and ease in building REST APIs
+
+Front-end development — [React JS](https://reactjs.org/docs/getting-started.html) framework which provides several memoization techniques and the availability of vast technical blogs and resources to learn from
+
+# ✍️ Contributing
+
+Interested in contributing to the GumGumLearn project? Thanks so much for your interest! We are always looking for improvements to the project and contributions from open-source developers are greatly appreciated.
+
+If you have a contribution in mind, please check out our [Contribution Guide](https://github.com/n1klaus/GumGumLearn/CONTRIBUTING.md) for information on how to do so. Also, make sure you read our [Code of Conduct](https://github.com/n1klaus/GumGumLearn/CODE_OF_CONDUCT.md) to foster an encouraging sense of community.
+
+# 🌟 Spread the word!
+
+If you want to say thank you and/or support active development of the GumGumLearn:
+
+- Fork the project!
+- Add a GitHub Star to the project!
+- Tweet about the project on your Twitter!
+  - Tag [@uncle_saitama](https://twitter.com/uncle_saitama) and/or `#gumgumlearn`
+
+Thanks so much for your interest in growing the reach of the Well app!
+
+# ⚠️ License
+
+GumGumLearn is free and open-source software licensed under the MIT License. All designs were created by [Nick Nyanjui](https://github.com/n1klaus) and distributed under Creative Commons license (CC BY-SA 4.0 International).
+
+<br />
