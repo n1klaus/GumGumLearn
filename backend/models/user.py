@@ -2,13 +2,13 @@
 """Module to define a user class"""
 
 import engine
-from pydantic import BaseModel, validate_model, validator, ValidationError
+from pydantic import BaseModel, validator
 from typing import Any, Optional
 from datetime import datetime
 import uuid
 from sqlalchemy.orm import validates
-from sqlalchemy import Column, INTEGER, Identity, text, TEXT, ForeignKey
-from sqlalchemy.dialects.postgresql import JSON, BYTEA, UUID, TIMESTAMP
+from sqlalchemy import Column, INTEGER, Identity, TEXT
+from sqlalchemy.dialects.postgresql import BYTEA, UUID, TIMESTAMP
 import bcrypt
 import secrets
 from models.base import Base, BaseClass

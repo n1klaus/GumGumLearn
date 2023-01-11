@@ -2,10 +2,8 @@
 """Module to define a base class"""
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, BOOLEAN,\
-    text, Sequence, INTEGER
+from sqlalchemy import Column, text, Sequence, INTEGER
 from sqlalchemy.dialects.postgresql import TIMESTAMP
-from sqlalchemy.sql import expression
 from datetime import datetime, timezone
 import engine
 

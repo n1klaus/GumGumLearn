@@ -3,9 +3,8 @@
 
 from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime
 from models.base import Base, BaseClass
-from sqlalchemy import Column, TEXT, Identity, INTEGER, ForeignKey
+from sqlalchemy import Column, Identity, INTEGER, ForeignKey
 from sqlalchemy.orm import relationship
 
 

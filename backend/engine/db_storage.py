@@ -22,6 +22,7 @@ class Storage:
 
     __session = None
     __engine = None
+    cache = None
 
     def __init__(self):
         """Instantiation of storage objects"""

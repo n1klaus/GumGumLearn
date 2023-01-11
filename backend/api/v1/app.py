@@ -14,6 +14,7 @@ import engine
 from os import getenv
 from pprint import pprint
 from collections import ChainMap
+from functools import lru_cache
 
 SECRET_KEY: str = getenv("SECRET_KEY")
 ALGORITHM: str = getenv("ALGORITHM")
@@ -51,7 +52,6 @@ class SignupItem(BaseModel):
     def validates_passwords_match(cls, value, values):
         if not value == values.get("password"):
             raise ValueError("Passwords do not match")
-
 
 
 app = FastAPI()
@@ -494,7 +494,7 @@ def query_dictionary_entries(word_id: str):
 
 
 # Search
-
+@lru_cache(typed=True, maxsize=1024)
 @app.get("/search", status_code=200, tags=["search"])
 def search(text: str, translate: bool = False) -> dict:
     """Returns a search object"""
@@ -524,7 +524,21 @@ def search(text: str, translate: bool = False) -> dict:
         #                                 )))
         # if search_obj:
         #     search_obj.save()
-            return {"data": search_obj.to_dict()}
+            return {"data": [search_obj.to_dict()]}
     raise HTTPException(
         status_code=404, detail={
             "message": "Search could not be completed"})
+
+
+# Languages
+@app.get("/languages", status_code=200, tags=["languages"])
+def get_languages() -> dict:
+    """Returns all languages"""
+    languages = engine.storage.all(config.classes.get("Language"))
+    pprint(languages)
+    if languages:
+        language_list = [language.to_dict() for language in languages.values()]
+        return {"data": language_list}
+    raise HTTPException(
+        status_code=404, detail={
+            "message": "No languages in the database"})

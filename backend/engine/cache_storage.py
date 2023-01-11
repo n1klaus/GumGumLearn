@@ -98,4 +98,3 @@ class LRUCache:
         # Delete from hash table
         del self.hash[last.key]
         last.prev = last.next = None  # For GC purposes
-

@@ -2,7 +2,7 @@
 """Module to define a search class"""
 
 from pydantic import BaseModel, HttpUrl, Json
-from typing import Optional, List, Any
+from typing import Optional, Any
 from datetime import datetime
 from models.base import Base, BaseClass
 from sqlalchemy import Column, INTEGER, Identity, ForeignKey, TEXT
@@ -45,6 +45,7 @@ class SearchOrm(BaseClass, Base):
     homophones = Column(JSON)
     examples = Column(JSON)
     online_examples = Column(JSON)
+    practices = Column(JSON)
 
     def __init__(self, *args, **kwargs):
         """Instantiation of search objects"""
