@@ -1,0 +1,62 @@
+version: '3.3'
+
+services:
+  # Create frontend container
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - 3000:3000
+      - 9229:9229
+    container_name: frontend-container
+    volumes:
+      - /vagrant/gumgumlearn/frontend:/var/gumgumlearn/frontend
+    restart: always
+    links:
+      - backend
+    command:
+      npm run debug
+
+  # Create backend container
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - 8000:8000
+    environment:
+      - PYTHONIOENCODING="UTF-8"
+      - PYTHONPATH="./"
+      - GUMGUMLEARN_API_HOST="gumgumlearn_api_host"
+      - GUMGUMLEARN_API_PORT="8000"
+      - GUMGUMLEARN_ENV="prod"
+      - GUMGUMLEARN_POSTGRESQL_USER="learn_test"
+      - GUMGUMLEARN_POSTGRESQL_PWD="learn_test_pwd"
+      - GUMGUMLEARN_POSTGRESQL_HOST="gumgumlearn_db_host"
+      - GUMGUMLEARN_POSTGRESQL_DB="learn_test_db"
+    container_name: backend-container
+    volumes:
+      - /vagrant/gumgumlearn/backend:/var/gumgumlearn/backend
+    restart: always
+    links:
+      - db
+  
+  # Create database container
+  db:
+    image: postgres:15.1-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=learn_test
+      - POSTGRES_PASSWORD=learn_test_pwd
+      - POSTGRES_DB=learn_test_db
+    volumes:
+      - postgresql_data:/var/lib/postgresql
+      - postgresql_config:/etc/postgresql
+    container_name: database-container
+    restart: always
+  
+volumes:
+  postgresql_data:
+  postgresql_config:
+
+    
