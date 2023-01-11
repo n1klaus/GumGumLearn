@@ -1,22 +1,48 @@
-import React from "react";
-import { Heading, Flex, Divider } from "@chakra-ui/react";
+import SidebarMenu from "react-bootstrap-sidebar-menu";
 
-const Header = () => {
-	return (
-		<Flex
-			as="nav"
-			align="center"
-			justify="space-between"
-			wrap="wrap"
-			padding="0.5rem"
-			bg="gray.400"
-		>
-			<Flex align="center" mr={5}>
-				<Heading as="h1" size="sm">Products</Heading>
-				<Divider />
-			</Flex>
-		</Flex>
-	);
+const FilterMenu = () => {
+  return (
+    <>
+      <SidebarMenu>
+        <SidebarMenu.Header>
+          <SidebarMenu.Brand>{/* Your brand icon */}</SidebarMenu.Brand>
+          <SidebarMenu.Toggle />
+        </SidebarMenu.Header>
+        <SidebarMenu.Body>
+          <SidebarMenu.Nav>
+            <SidebarMenu.Nav.Link>
+              <SidebarMenu.Nav.Icon>
+                {/* Menu item icon */}
+              </SidebarMenu.Nav.Icon>
+              <SidebarMenu.Nav.Title>
+                {/* Menu item title */}
+              </SidebarMenu.Nav.Title>
+            </SidebarMenu.Nav.Link>
+          </SidebarMenu.Nav>
+          <SidebarMenu.Sub>
+            <SidebarMenu.Sub.Toggle>
+              <SidebarMenu.Nav.Icon />
+              <SidebarMenu.Nav.Title>
+                {/* Submenu title */}
+              </SidebarMenu.Nav.Title>
+            </SidebarMenu.Sub.Toggle>
+            <SidebarMenu.Sub.Collapse>
+              <SidebarMenu.Nav>
+                <SidebarMenu.Nav.Link>
+                  <SidebarMenu.Nav.Icon>
+                    {/* Submenu item icon */}
+                  </SidebarMenu.Nav.Icon>
+                  <SidebarMenu.Nav.Title>
+                    {/* Submenu item title */}
+                  </SidebarMenu.Nav.Title>
+                </SidebarMenu.Nav.Link>
+              </SidebarMenu.Nav>
+            </SidebarMenu.Sub.Collapse>
+          </SidebarMenu.Sub>
+        </SidebarMenu.Body>
+      </SidebarMenu>
+    </>
+  );
 };
 
-export default Header;
+export default FilterMenu;

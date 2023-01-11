@@ -38,7 +38,9 @@
 -------------------------------------------------------------------*/
 /*=== MEDIA QUERY ===*/
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,700,800|Source+Sans+Pro:400|Catamaran:400,600,700");
-html, body, .App-container {
+html,
+body,
+.App-container {
   height: 100vh;
 }
 
@@ -50,52 +52,52 @@ body {
 }
 
 .search-bar {
-	/* position: absolute; */
-	width: calc(420px);
-	margin-bottom: calc(5px);
-	/* top: calc(50%);
+  /* position: absolute; */
+  width: calc(420px);
+  margin-bottom: calc(5px);
+  /* top: calc(50%);
 	left: calc(50%);
 	margin-top: calc(-50px);
 	margin-left: calc(-200px); */
-	/* height: 100%; */
-	/* max-height: auto; */
+  /* height: 100%; */
+  /* max-height: auto; */
 }
 
 .search-center {
-	position: absolute;
-	top: calc(50%);
-	left: calc(50%);
-	/* width: calc(420px); */
-	margin-top: calc(-50px);
-	margin-left: calc(-200px);
-	/* height: 100%; */
-	/* max-height: auto; */
+  position: absolute;
+  top: calc(50%);
+  left: calc(50%);
+  /* width: calc(420px); */
+  margin-top: calc(-50px);
+  margin-left: calc(-200px);
+  /* height: 100%; */
+  /* max-height: auto; */
 }
 
 .search-top {
-	position: relative;
-	/* top: calc(50%); */
-	left: calc(50%);
-	/* width: calc(420px); */
-	/* margin-top: calc(-50px); */
-	margin-left: calc(-200px);
-	/* height: 100%; */
-	/* max-height: auto; */
+  position: relative;
+  /* top: calc(50%); */
+  left: calc(50%);
+  /* width: calc(420px); */
+  /* margin-top: calc(-50px); */
+  margin-left: calc(-200px);
+  /* height: 100%; */
+  /* max-height: auto; */
 }
 
 .search-results {
-	display: block;
-	/* align-items: center;
+  display: block;
+  /* align-items: center;
 	justify-content: center; */
-	margin-top: calc(20px);
+  margin-top: calc(20px);
 }
 
 .footer-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	position: fixed;
-	width: 100%;
-	bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
