@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """Module to define a search class"""
 
-from pydantic import BaseModel, HttpUrl, Json
-from typing import Optional, Any
 from datetime import datetime
 from models.base import Base, BaseClass
+from pydantic import BaseModel, HttpUrl, Json
 from sqlalchemy import Column, INTEGER, Identity, ForeignKey, TEXT
 from sqlalchemy.dialects.postgresql import JSON
+from typing import Optional, Any
 
 
 class SearchModel(BaseModel):

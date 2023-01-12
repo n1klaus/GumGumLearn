@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """Module to define a base class"""
 
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, text, Sequence, INTEGER
-from sqlalchemy.dialects.postgresql import TIMESTAMP
 from datetime import datetime, timezone
 import engine
+from sqlalchemy import Column, text, Sequence, INTEGER
+from sqlalchemy.dialects.postgresql import TIMESTAMP
+from sqlalchemy.ext.declarative import declarative_base
+
 
 Base = declarative_base()
 

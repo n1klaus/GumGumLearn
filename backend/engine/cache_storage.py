@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """Module definition for a cache storage"""
 
-
-import engine
+from collections import deque
+from typing import Callable, Any
 
 
 class DoublyLinkedNode:
     """"Class definition for cache storage node"""
 
-    def __init__(self, prev, key, item, next):
+    def __init__(self, prev: deque, key: str, item: Any, next: deque):
         """Instantiation of node objects"""
         self.prev = prev
         self.key = key
@@ -19,7 +19,12 @@ class DoublyLinkedNode:
 class LRUCache:
     """ An LRU cache of a given size caching calls to a given function """
 
-    def __init__(self, size: int, if_missing: function):
+    @staticmethod
+    def cache_lookup():
+        """"""
+        pass
+
+    def __init__(self, size: int, if_missing: Callable = cache_lookup):
         """
         Create an LRUCache given a size and a function to call for missing keys
         """
@@ -30,7 +35,7 @@ class LRUCache:
         self.list_front = None
         self.list_end = None
 
-    def get(self, key):
+    def get(self, key: str):
         """ Get the value associated with a certain key from the cache """
 
         if key in self.hash:
@@ -44,7 +49,7 @@ class LRUCache:
             self.insert(key, new_item)
             return new_item
 
-    def find(self, key):
+    def find(self, key: str):
         """ Find a key known to be in the cache. """
 
         node = self.hash[key]
@@ -70,7 +75,7 @@ class LRUCache:
 
         return node.item
 
-    def insert(self, key, item):
+    def insert(self, key: str, item: Any):
         """ Insert an item to the cache """
         node = DoublyLinkedNode(None, key, item, None)
 

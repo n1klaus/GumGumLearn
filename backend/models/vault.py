@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """Module to define a vault class"""
 
-from pydantic import BaseModel
-from typing import Optional
 from models.base import Base, BaseClass
+from pydantic import BaseModel
 from sqlalchemy import Column, Identity, INTEGER, ForeignKey
 from sqlalchemy.orm import relationship
+from typing import Optional
 
 
 class VaultModel(BaseModel):

@@ -1,17 +1,17 @@
 #!/usr/bin/python3
 """Module to define a user class"""
 
-import engine
-from pydantic import BaseModel, validator
-from typing import Any, Optional
+import bcrypt
 from datetime import datetime
-import uuid
-from sqlalchemy.orm import validates
+import engine
+import secrets
 from sqlalchemy import Column, INTEGER, Identity, TEXT
 from sqlalchemy.dialects.postgresql import BYTEA, UUID, TIMESTAMP
-import bcrypt
-import secrets
+from sqlalchemy.orm import validates
 from models.base import Base, BaseClass
+from pydantic import BaseModel, validator
+from typing import Any, Optional
+import uuid
 
 
 class UserModel(BaseModel):
@@ -74,7 +74,7 @@ class UserOrm(BaseClass, Base):
 
     def create_password_salt(self):
         """Generates new password salt"""
-        self.password_salt = bcrypt.gensalt(rounds=15, prefix=b"2a")
+        self.password_salt = bcrypt.gensalt(rounds=13, prefix=b"2a")
 
     def create_password_hash(self, password_str: str):
         """Generates new password hash"""

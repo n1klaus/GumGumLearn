@@ -1,14 +1,15 @@
 #!/usr/bin/python3
 """Module definition for a PostgreSQL database connection"""
 
-from models.base import *
-import engine
 import config
+import engine
+from models.base import Base
 from os import getenv
+from pprint import pprint
 from sqlalchemy import create_engine
 from sqlalchemy.exc import PendingRollbackError
 from sqlalchemy.orm import sessionmaker, scoped_session, Query
-from pprint import pprint
+
 
 GUMGUMLEARN_POSTGRESQL_USER = getenv('GUMGUMLEARN_POSTGRESQL_USER')
 GUMGUMLEARN_POSTGRESQL_PWD = getenv('GUMGUMLEARN_POSTGRESQL_PWD')

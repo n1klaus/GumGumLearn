@@ -1,20 +1,21 @@
 #!/usr/bin/python3
 """Module to define API endpoints"""
-from fastapi import FastAPI
-from pydantic import BaseModel, validator, Json
-from typing import Optional, Any
-import jwt
-import requests
-from fastapi.requests import Request
-from fastapi.encoders import jsonable_encoder
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.exceptions import HTTPException, RequestValidationError
-import config
+
+from collections import ChainMap
 import engine
+import config
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import HTTPException, RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
+from functools import lru_cache
+import jwt
 from os import getenv
 from pprint import pprint
-from collections import ChainMap
-from functools import lru_cache
+from pydantic import BaseModel, validator, Json
+import requests
+from typing import Optional, Any
+
 
 SECRET_KEY: str = getenv("SECRET_KEY")
 ALGORITHM: str = getenv("ALGORITHM")

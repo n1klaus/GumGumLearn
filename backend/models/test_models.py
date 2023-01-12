@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 import engine
+from models.search import SearchOrm
 from models.user import UserOrm
 from models.vault import VaultOrm
-from models.search import SearchOrm
 from pprint import pprint
+
 
 classes = {
     "User": UserOrm,
