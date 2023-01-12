@@ -4,9 +4,7 @@
 
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 
-[![Version](https://img.shields.io/github/v/release/n1klaus/GumGumLearn?color=%23FDD835&label=version)](https://github.com/n1klaus/GumGumLearn/releases)
-
-[![Build Status](https://travis-ci.org/anfederico/clairvoyant.svg?branch=master)](https://travis-ci.org/anfederico/clairvoyant)
+<!--[![Version](https://img.shields.io/github/v/release/n1klaus/GumGumLearn?color=%23FDD835&label=version)](https://github.com/n1klaus/GumGumLearn/releases)-->
 
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
 
@@ -65,7 +63,7 @@
 
 ***Integration over Isolation***
 
-GumGumLearn aims to provide the best way to learn, improve and gauge your English through persnoalized content fueled from yoour search queries hence making internalization and comprehension easier.
+GumGumLearn aims to provide the best way to learn, improve and gauge your English through personalized content fueled from your search queries hence making internalization and comprehension easier.
 
 # 💡 Inspiration
 
@@ -80,6 +78,10 @@ Database — [PostgreSQL](https://www.postgresql.org/docs/current/index.html) be
 Back-end development — [Python3](https://docs.python.org/3.8/) language due to simplicity and flexibility when learning and using new technologies and integration with command line tools for debugging and other alternative uses using CPython implementation, [FastAPI framework]() because of its straightforward documentation, performance advantages, and ease in building REST APIs
 
 Front-end development — [React JS](https://reactjs.org/docs/getting-started.html) framework which provides several memoization techniques and the availability of vast technical blogs and resources to learn from
+
+To create the project from scratch use [Setup](./SETUP.md)
+
+# ⏳ Installation
 
 # ✍️ Contributing
 

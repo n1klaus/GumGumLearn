@@ -112,15 +112,15 @@ sudo docker volume create postgres_config
 sudo docker network create mynet
 
 ##### Building the image using Dockerfile
-sudo docker build -f Dockerfile . --tag learn-frontend:v1.0.0 # frontend
-sudo docker build -f Dockerfile . --tag learn-backend:v1.0.0 # backend
+sudo docker build -f Dockerfile . --tag learn-frontend:latest # frontend
+sudo docker build -f Dockerfile . --tag learn-backend:latest # backend
 
 ##### Running a local container 
-docker run --rm --detach \
-	--network $MYNETWORK \
-	--name $CONTAINERNAME \
-	--publish $HOSTPORT:$CONTAINERPORT \
-	$CONTAINERIMAGE
+docker run --rm -it \
+	--network $NETWORK_NAME \
+	--name $CONTAINER_NAME \
+	--publish $HOST_PORT:$CONTAINER_PORT \
+	$CONTAINER_IMAGE_NAME:$CONTAINER_IMAGE_TAG
 
 ##### Running a local postgresql container using postgres
 sudo docker run --rm --detach \
