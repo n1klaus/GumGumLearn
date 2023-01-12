@@ -1,0 +1,31 @@
+// *********************************
+// *********************************
+// **** Database
+// *********************************
+// *********************************
+
+Project GumGumLearn {
+	database_type: 'PostgreSQL'
+	Note: 'GumGumLearn Database'
+}
+
+
+// *********************************
+// *********************************
+// **** Users Table
+// *********************************
+// *********************************
+
+Table users {
+	user_id int [PK, increment, NOT NULL]
+	uuid text
+	username text [NOT NULL, UNIQUE]
+	password_hash bytea
+	password_salt bytea
+	reset_code text
+	local_language text
+	date_joined timestamptz  [NOT NULL, DEFAULT: `now()`]
+	Note: 'Table to hold all users'
+}
+
+

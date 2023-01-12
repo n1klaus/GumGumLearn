@@ -1,0 +1,24 @@
+// *********************************
+// *********************************
+// **** Search Table
+// *********************************
+// *********************************
+
+Table search {
+    search_id int [PK, increment, NOT NULL]
+    vault_id int
+    created_at timestamptz [NOT NULL, DEFAULT: `now()`]
+    updated_at timestamptz  [NOT NULL, DEFAULT: `now()`]
+    word text
+    translated_word text
+    meanings json
+    synonymns json
+    antonymns json
+    homophones json
+    examples json
+    online_examples json
+    Note: 'Table to hold search objects containing words and their references'
+}
+Ref: search.vault_id > vault.vault_id [update: cascade, delete: cascade]
+
+
