@@ -15,7 +15,6 @@ export default function Home() {
     // console.log(`Results: ${results}`);
     setText(string);
   };
-
   const handleOnHover = (result) => {
     // the item hovered
     console.log(result);

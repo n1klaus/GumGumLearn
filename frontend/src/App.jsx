@@ -7,6 +7,8 @@ import Signup from "./Signup";
 import ResetPassword from "./ResetPassword";
 import Profile from "./Profile";
 import Home from "./Home";
+import About from "./About";
+import Contact from "./Contact";
 import { RequireToken } from "./Components/Auth";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -23,6 +25,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/forgot_password" element={<ResetPassword />} />
             <Route
               path="/profile"

@@ -101,3 +101,25 @@ body {
   width: 100%;
   bottom: 0;
 }
+
+.user-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  width: 100%;
+  min-height: 800;
+}
+
+.form-margin {
+  margin-left: calc(350px);
+  margin-top: calc(50px);
+}
+
+.image-margin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(60%);
+  height: auto;
+}

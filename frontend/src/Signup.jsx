@@ -41,13 +41,15 @@ export default function Signup() {
     }
   };
   return (
-    <div style={{ minHeight: 800, marginTop: 30 }}>
-      <h1>Signup page</h1>
-      <div style={{ marginTop: 30 }}>
+    <div className="d-block m-4">
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <h1>Signup page</h1>
+      </div>
+      <div>
         {fetchToken() ? (
           <p>You are logged in</p>
         ) : (
-          <div>
+          <div className="form-margin">
             <Form>
               <Form.Group
                 as={Row}

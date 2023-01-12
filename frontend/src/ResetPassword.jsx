@@ -33,13 +33,15 @@ export default function ResetPassword() {
     }
   };
   return (
-    <div style={{ minHeight: 800, marginTop: 30 }}>
-      <h1>Reset password page</h1>
+    <div className="d-block m-4">
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <h1>Reset password page</h1>
+      </div>
       <div style={{ marginTop: 30 }}>
         {fetchToken() ? (
           navigate("/")
         ) : (
-          <div>
+          <div className="form-margin">
             <Form>
               <Form.Group
                 as={Row}
@@ -63,7 +65,7 @@ export default function ResetPassword() {
                 <Button variant="primary" type="submit" onClick={resetPassword}>
                   Reset Password
                 </Button>
-                <br></br>
+                <p className="d-block m-2">or</p>
                 <a href="/login">Log in</a>
               </Col>
             </Form>

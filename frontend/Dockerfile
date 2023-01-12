@@ -45,4 +45,4 @@ EXPOSE 3000
 RUN echo "node_modules" > .dockerignore
 
 # Start out vite server
-ENTRYPOINT ["npm", "run", "start"]
+ENTRYPOINT ["npm", "run", "deploy"]
