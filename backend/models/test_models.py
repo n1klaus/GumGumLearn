@@ -31,7 +31,7 @@ for cls in classes.values():
         # vault_id = my_model.vault_id
     elif cls == SearchOrm:
         kwargs = {
-            "word": "Kaizoku",
+            "word": "world",
             "vault_id": 1
         }
         my_model = SearchOrm(**kwargs)
@@ -47,12 +47,12 @@ for cls in classes.values():
     my_model_json = my_model.to_dict()
     pprint(my_model_json)
 
-    print('\n<---->')
-    print("JSON of my_model:")
-    for key in my_model_json.keys():
-        print("\t{}: ({}) - {}".format(key,
-                                       type(my_model_json[key]),
-                                       my_model_json[key]))
+    # print('\n<---->')
+    # print("JSON of my_model:")
+    # for key in my_model_json.keys():
+    #     print("\t{}: ({}) - {}".format(key,
+    #                                    type(my_model_json[key]),
+    #                                    my_model_json[key]))
 
     print('\n<---->')
     print("All objects: {}".format(engine.storage.count()))

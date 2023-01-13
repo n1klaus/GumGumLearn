@@ -41,11 +41,11 @@ class Storage:
     def all(self, cls=None):
         """ Query on the current database session """
         new_dict = {}
-        for clss in config.classes.keys():
-            if cls is None or cls is config.classes[clss] or cls is clss:
-                objs = self.__session.query(config.classes.get(clss))
+        for clss in config.OrmClasses.keys():
+            if cls is None or cls is config.OrmClasses[clss] or cls is clss:
+                objs = self.__session.query(config.OrmClasses.get(clss))
                 for obj in objs:
-                    if obj.__class__.__name__ in config.classes.values():
+                    if obj.__class__.__name__ in config.OrmClasses.values():
                         _attr = f"{str(clss).lower()}_id"
                         if getattr(obj, _attr, None):
                             _id = getattr(obj, _attr)
@@ -90,11 +90,11 @@ class Storage:
         Returns the object based on the class name and its ID,
         or None if not found
         """
-        if cls not in config.classes.values():
+        if cls not in config.OrmClasses.values():
             return None
 
         all_cls = engine.storage.all(cls)
-        for k, v in config.classes.items():
+        for k, v in config.OrmClasses.items():
             if v == cls:
                 _cls = k
         _attr = f"{_cls.lower()}_id"
@@ -105,12 +105,12 @@ class Storage:
 
     def get_user_vault(self, user_id: int, vault_id: int):
         """Returns user vault items"""
-        objs = Query([config.classes.get("Vault"),
-                      config.classes.get("Search")],
+        objs = Query([config.OrmClasses.get("Vault"),
+                      config.OrmClasses.get("Search")],
                      session=self.__session).join(
-            config.classes.get("Vault").searches).filter(
-            config.classes.get("Vault").vault_id == vault_id).filter(
-            config.classes.get("Vault").user_id == user_id)
+            config.OrmClasses.get("Vault").searches).filter(
+            config.OrmClasses.get("Vault").vault_id == vault_id).filter(
+            config.OrmClasses.get("Vault").user_id == user_id)
         if objs:
             obj_list = []
             for vault_obj, search_obj in objs:
@@ -125,7 +125,7 @@ class Storage:
         """
         Count the number of objects in storage
         """
-        all_class = config.classes.values()
+        all_class = config.OrmClasses.values()
 
         if not cls:
             count = 0

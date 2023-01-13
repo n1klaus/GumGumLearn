@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 """Module to define uvicorn server instance"""
+
+from dotenv import load_dotenv
+from os import getenv, path
 import uvicorn
-from os import getenv
+
+dotenv_path = path.join(path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 if __name__ == "__main__":
     HOST = getenv("GUMGUMLEARN_API_HOST", "0.0.0.0")

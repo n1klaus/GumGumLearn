@@ -2,6 +2,8 @@
 """Module definition for a cache storage"""
 
 from collections import deque
+from datetime import datetime, timedelta
+from functools import wraps, lru_cache
 from typing import Callable, Any
 
 
@@ -20,11 +22,11 @@ class LRUCache:
     """ An LRU cache of a given size caching calls to a given function """
 
     @staticmethod
-    def cache_lookup():
-        """"""
+    def db_lookup():
+        """Method to fetch data from database used a fallback for cache miss"""
         pass
 
-    def __init__(self, size: int, if_missing: Callable = cache_lookup):
+    def __init__(self, size: int, if_missing: Callable = db_lookup):
         """
         Create an LRUCache given a size and a function to call for missing keys
         """
