@@ -18,7 +18,13 @@ const About = () => {
               It is what we know already that often prevents us from learning.{" "}
             </p>
             <footer className="blockquote-footer">
-              Claude Bernard <cite title="Source Title">Google</cite>
+              Claude Bernard{" "}
+              <cite title="Source Title">
+                {" "}
+                <a href="https://www.brainyquote.com/quotes/claude_bernard_177950">
+                  Brainy Quote
+                </a>
+              </cite>
             </footer>
           </blockquote>
         </Card.Body>

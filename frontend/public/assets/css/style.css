@@ -51,6 +51,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.App-container {
+  background-color: #a4dded;
+}
 .search-bar {
   /* position: absolute; */
   width: calc(420px);

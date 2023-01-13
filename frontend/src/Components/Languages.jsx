@@ -15,10 +15,10 @@ const Languages = () => {
         data-language={lang_title}
       >
         <NavDropdown.Item onClick={(e) => setLanguage(e.target.innerText)}>
-          EN-GB
+          en-gb
         </NavDropdown.Item>
         <NavDropdown.Item onClick={(e) => setLanguage(e.target.innerText)}>
-          En-US
+          en-us
         </NavDropdown.Item>
       </NavDropdown>
     </>

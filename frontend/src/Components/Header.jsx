@@ -8,7 +8,11 @@ import Button from "react-bootstrap/Button";
 const Header = () => {
   return (
     <>
-      <Navbar bg="light" expand="md" className="mb-3">
+      <Navbar
+        expand="md"
+        className="mb-3"
+        style={{ backgroundColor: "#00CCCC" }}
+      >
         <Container fluid>
           <Navbar.Brand href="/">GumGumLearn</Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-$sm`} />
