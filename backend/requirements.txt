@@ -1,6 +1,6 @@
 fastapi==0.88.0
 psycopg2-binary==2.9.5
-PyJWT==1.7.1
+PyJWT==2.4.0
 requests==2.22.0
 SQLAlchemy==1.4.42
 typing-extensions==4.4.0
