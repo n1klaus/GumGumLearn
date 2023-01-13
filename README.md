@@ -3,15 +3,11 @@
 <div align='center'>
 
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
-
-<!--[![Version](https://img.shields.io/github/v/release/n1klaus/GumGumLearn?color=%23FDD835&label=version)](https://github.com/n1klaus/GumGumLearn/releases)-->
-
+![Node](https://img.shields.io/badge/node-v18.12.1+-blue.svg)
+[![Version](https://img.shields.io/github/v/release/n1klaus/GumGumLearn?color=%23FDD835&label=version)](https://github.com/n1klaus/GumGumLearn/releases)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
-
 [![GitHub Issues](https://img.shields.io/github/issues/n1klaus/GumGumLearn.svg)](https://github.com/n1klaus/GumGumLearn/issues)
-
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
-
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 </a>
@@ -79,9 +75,21 @@ Back-end development — [Python3](https://docs.python.org/3.8/) language due to
 
 Front-end development — [React JS](https://reactjs.org/docs/getting-started.html) framework which provides several memoization techniques and the availability of vast technical blogs and resources to learn from
 
-To create the project from scratch use [Setup](./SETUP.md)
 
 # ⏳ Installation
+
+To create the project from scratch use [Setup](./SETUP.md)
+
+```  bash
+# Starting up the backend
+cd backend
+python3 main.py
+
+# Starting up the frontend
+cd frontend
+npm install
+npm run deploy
+```
 
 # ✍️ Contributing
 

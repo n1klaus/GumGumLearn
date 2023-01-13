@@ -28,6 +28,7 @@ yarn-error.log*
 
 # setup files
 DEV_ENV.sh
+TEST_ENV.sh
 SECRETS
 
 *.code-workspace

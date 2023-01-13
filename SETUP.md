@@ -1,4 +1,5 @@
-### Setting up the Database
+# Setting up the Database
+
 ##### Install dbdocs
 ``` bash
 # clean cache and update to the latest version
@@ -49,7 +50,8 @@ dbdocs build learn_db_dev.dbml
 dbml2sql learn_db_dev.dbml -o learn_db_dev.sql
 ```
 
-### Setting up the Backend
+# Setting up the Backend
+
 ##### [Setup the environment variables](./TEST_ENV.sh)
 ``` bash
 # Add working environment variables to user profile
@@ -63,7 +65,7 @@ echo "source /vagrant/GumGumLearn/DEV_ENV.sh" | sudo tee -a ~/.profile
 # you may also need to make sure '/etc/postgresql/15/main/pg_hba.conf'
 # has local connections to trust, like this:
 # local        all      postgres     trust
-cat backend/database/setup_db_test.sql | psql postgres postgres
+cat database/setup_db_test.sql | psql postgres postgres
 ```
 
 ##### View the database and tables
@@ -94,35 +96,56 @@ python3 backend/models/test_models.py
 tmux new-session -d 'python3 backend/main.py'
 ```
 
-### Setting up the Frontend
+# Setting up the Frontend
+
 ``` bash
 # install react, create template and dependencies from boilerplate
 npx create-react-app my-app
 ```
 
-### Setting up Docker
-##### Creating requirements file
-python3 -m pip freeze > requirements.txt
+# Setting up Docker
 
-##### Creating a volume
-sudo docker volume create postgres_data
-sudo docker volume create postgres_config
+##### Creating requirements file for dependencies
+```	bash
+python3 -m pip freeze > requirements.txt
+```
+
+##### Creating a docker volume
+```	bash
+sudo docker volume create postgres_data # database data files
+sudo docker volume create postgres_config # database configuration files
+```
 
 ##### Creating a network
+```	bash
 sudo docker network create mynet
+```
 
 ##### Building the image using Dockerfile
+```	bash
+cd frontend
 sudo docker build -f Dockerfile . --tag learn-frontend:latest # frontend
-sudo docker build -f Dockerfile . --tag learn-backend:latest # backend
 
-##### Running a local container 
-docker run --rm -it \
+cd ../backend
+sudo docker build -f Dockerfile . --tag learn-backend:latest # backend
+```
+
+##### List all created docker images
+```	bash
+sudo docker images
+```
+
+##### Running a local container from created docker image
+```	bash
+sudo docker run --rm -it \
 	--network $NETWORK_NAME \
 	--name $CONTAINER_NAME \
 	--publish $HOST_PORT:$CONTAINER_PORT \
 	$CONTAINER_IMAGE_NAME:$CONTAINER_IMAGE_TAG
+```
 
-##### Running a local postgresql container using postgres
+##### Running a local postgresql container using postgres image
+```	bash
 sudo docker run --rm --detach \
 	--volume postgres_data:/var/lib/postgresql \
 	--volume postgresql_config:/etc/postgresql \
@@ -133,6 +156,9 @@ sudo docker run --rm --detach \
 	-e POSTGRES_USER=motobay_admin \
 	-e POSTGRES_DB=motobay_prod_db \
 	postgres:15.1-alpine
+```
 
-##### Creating containers with docker compose
+##### Creating both frontend and backend containers with docker compose file
+```	bash
 sudo docker-compose -f docker-compose.yml up --build
+```
